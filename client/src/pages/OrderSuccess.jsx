@@ -1,21 +1,23 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "./OrderSuccess.css";
 
 function OrderSuccess() {
 
-  return (
-    <div>
+  const navigate = useNavigate();
 
-      <h1>✅ Order Placed Successfully</h1>
+  return (
+    <div className="success-container">
+
+      <h1>🎉 Order Placed Successfully!</h1>
 
       <p>
-        Your food will be prepared soon 🍽️
+        Thank you for ordering.
+        Your food will be served soon.
       </p>
 
-      <Link to="/menu">
-        <button>
-          Order More
-        </button>
-      </Link>
+      <button onClick={() => navigate("/menu")}>
+        Back To Menu
+      </button>
 
     </div>
   );

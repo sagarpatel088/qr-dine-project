@@ -1,0 +1,15 @@
+.success-container{
+  text-align:center;
+  padding:50px;
+}
+
+.success-container h1{
+  font-size:35px;
+}
+
+.success-container button{
+  padding:12px 25px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}

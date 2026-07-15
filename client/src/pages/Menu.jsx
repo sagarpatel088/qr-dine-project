@@ -1,42 +1,24 @@
-import { useState } from "react";
+
 import { useCart } from "../context/CartContext";
 import "./Menu.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const foodItems = [
-  {
-    id: 1,
-    name: "Burger",
-    category: "Fast Food",
-    price: 120,
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd"
-  },
 
-  {
-    id: 2,
-    name: "Pizza",
-    category: "Fast Food",
-    price: 250,
-    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591"
-  },
-
-  {
-    id: 3,
-    name: "Pasta",
-    category: "Fast Food",
-    price: 180,
-    image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601"
-  },
-
-  {
-    id: 4,
-    name: "Cold Drink",
-    category: "Drinks",
-    price: 60,
-    image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e"
-  }
-];
 
 function Menu() {
+  const [foodItems, setFoodItems] = useState([]);
+
+useEffect(() => {
+  axios
+    .get("http://localhost:5001/menu")
+    .then((response) => {
+      setFoodItems(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}, []);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const { addToCart } = useCart();

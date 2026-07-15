@@ -1,6 +1,7 @@
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
+import axios from "axios";
 
 function Cart() {
 const navigate = useNavigate();
@@ -104,11 +105,24 @@ const navigate = useNavigate();
 
 
          <button
-  className="checkout"
-  onClick={() => {
+ onClick={async () => {
+
+  try {
+
+    await axios.post("http://localhost:5001/orders", {
+      tableNumber: tableNumber,
+      items: cart,
+      total: total
+    });
+
     clearCart();
     navigate("/order-success");
-  }}
+
+  } catch (error) {
+    console.log(error);
+  }
+
+}}
 >
   Proceed To Checkout
 </button>

@@ -6,6 +6,7 @@ import Cart from "../pages/Cart";
 import Table from "../pages/Table";
 import OrderSuccess from "../pages/OrderSuccess";
 import Navbar from "../components/Navbar";
+import Admin from "../pages/Admin";
 
 function AppRoutes() {
   return (
@@ -16,8 +17,9 @@ function AppRoutes() {
   <Route path="/menu" element={<Menu/>} />
   <Route path="/cart" element={<Cart/>} />
   <Route path="/table/:tableId" element={<Table/>} />
-  <Route path="/order-success" element={<OrderSuccess/>} 
-/>
+  <Route path="/order-success" element={<OrderSuccess/>} />
+  <Route path="/admin" element={<Admin />} />
+  <Route path="/order-success" element={<OrderSuccess />} />
 </Routes>
     </BrowserRouter>
   );

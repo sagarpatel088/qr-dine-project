@@ -1,0 +1,81 @@
+.admin-container {
+  padding: 30px;
+}
+
+.order-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background: #fff;
+}
+.pending {
+  background: #ffe082;
+  color: #8a6d00;
+  padding: 8px 14px;
+  border-radius: 20px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.preparing {
+  background: #90caf9;
+  color: #0d47a1;
+  padding: 8px 14px;
+  border-radius: 20px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.ready {
+  background: #a5d6a7;
+  color: #1b5e20;
+  padding: 8px 14px;
+  border-radius: 20px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.served {
+  background: #c8e6c9;
+  color: #2e7d32;
+  padding: 8px 14px;
+  border-radius: 20px;
+  display: inline-block;
+  font-weight: bold;
+}
+.stats{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  margin:25px 0;
+}
+
+.stat-card{
+  flex:1;
+  min-width:180px;
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+
+.stat-card h2{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.stat-card p{
+  color:#666;
+  font-weight:600;
+}
+.search-box{
+  width:100%;
+  max-width:350px;
+  padding:12px;
+  margin:20px 0;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:16px;
+}

@@ -30,8 +30,7 @@ function Admin() {
   const navigate = useNavigate();
 
  const fetchOrders = () => {
-  axios
-    .get("https://qr-dine-project.onrender.com")
+  axios.get("https://qr-dine-project.onrender.com/orders")
     .then((response) => {
       setOrders(response.data);
     })

@@ -11,8 +11,7 @@ function Menu() {
   const [foodItems, setFoodItems] = useState([]);
 
 useEffect(() => {
-  axios
-    .get("https://qr-dine-project.onrender.com")
+  axios.get("https://qr-dine-project.onrender.com/menu")
     .then((response) => {
       setFoodItems(response.data);
     })

@@ -111,7 +111,7 @@ const navigate = useNavigate();
 
   try {
 
-    await axios.post("https://qr-dine-project.onrender.com", {
+    await axios.post("https://qr-dine-project.onrender.com/orders", {
       tableNumber: tableNumber,
       items: cart,
       total: total

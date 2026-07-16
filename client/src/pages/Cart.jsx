@@ -110,22 +110,18 @@ const navigate = useNavigate();
   onClick={async () => {
 
   try {
+  await axios.post("https://qr-dine-project.onrender.com/orders", {
+    tableNumber: tableNumber,
+    items: cart,
+    total: total,
+  });
 
-    await axios.post("https://qr-dine-project.onrender.com/orders", {
-      tableNumber: tableNumber,
-      items: cart,
-      total: total
-    });
+  clearCart();
+  navigate("/order-success");
 
-    toast.success("🎉 Order Placed Successfully!");
-
-clearCart();
-
-navigate("/order-success");
-
-  } catch (error) {
-    console.log(error);
-  }
+} catch (error) {
+  console.log(error);
+}
 
 }}
 >

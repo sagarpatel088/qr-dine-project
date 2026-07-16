@@ -12,7 +12,7 @@ function Menu() {
 
 useEffect(() => {
   axios
-    .get("http://localhost:5001/menu")
+    .get("https://qr-dine-project.onrender.com")
     .then((response) => {
       setFoodItems(response.data);
     })

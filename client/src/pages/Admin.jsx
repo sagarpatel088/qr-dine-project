@@ -31,7 +31,7 @@ function Admin() {
 
  const fetchOrders = () => {
   axios
-    .get("http://localhost:5001/orders")
+    .get("https://qr-dine-project.onrender.com")
     .then((response) => {
       setOrders(response.data);
     })

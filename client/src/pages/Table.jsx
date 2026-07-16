@@ -1,39 +1,26 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useEffect } from "react";
 
 function Table() {
-
   const { tableId } = useParams();
+  const navigate = useNavigate();
 
   const { setTableNumber } = useCart();
 
-
   useEffect(() => {
-
     setTableNumber(tableId);
 
-    localStorage.setItem(
-      "tableNumber",
-      tableId
-    );
+    localStorage.setItem("tableNumber", tableId);
 
-  }, [tableId, setTableNumber]);
+    // Automatically Menu page par bhej do
+    navigate("/menu");
 
+  }, [tableId, setTableNumber, navigate]);
 
   return (
     <div>
-
-      <h1>🍽️ QR Dine</h1>
-
-      <h2>
-        Table Number: {tableId}
-      </h2>
-
-      <p>
-        Welcome! Please order your food.
-      </p>
-
+      <h1>Loading...</h1>
     </div>
   );
 }

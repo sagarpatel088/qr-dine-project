@@ -67,32 +67,37 @@ Drinks
   
           <div className="food-card" key={item.id}>
 
-            <div className="food-image">
-  <img src={item.image} alt={item.name} />
+  <div className="food-image">
+    <img src={item.image} alt={item.name} />
+  </div>
+
+  <h2>
+    {item.name} 
+    <span style={{color:"#fbc02d"}}>⭐4.8</span>
+  </h2>
+
+  <p className="category">
+    {item.category}
+  </p>
+
+  <p style={{color:"#ff5722", fontSize:"22px"}}>
+    ₹{item.price}
+  </p>
+
+  <button
+    onClick={() => {
+      addToCart({
+        ...item,
+        quantity: 1
+      });
+
+      toast.success(`${item.name} added to cart 🛒`);
+    }}
+  >
+    Add To Cart
+  </button>
+
 </div>
-           <h2>
-  {item.name} <span style={{color:"#fbc02d"}}>⭐4.8</span>
-</h2>
-
-<p className="category">
-  {item.category}
-</p>
-
-<p style={{color:"#ff5722", fontSize:"22px"}}>
-  ₹{item.price}
-</p>
-            onClick={() => {
-
-  addToCart({
-    ...item,
-    quantity: 1
-  });
-
-  toast.success(`${item.name} added to cart 🛒`);
-
-}}
-
-          </div>
         ))}
 
       </div>

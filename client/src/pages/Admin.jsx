@@ -43,10 +43,9 @@ function Admin() {
 const updateStatus = async (id, status) => {
   try {
     await axios.put(
-      `http://localhost:5001/orders/${id}`,
-      { status }
-    );
-
+  `https://qr-dine-project.onrender.com/orders/${id}`,
+  { status }
+);
     fetchOrders();
 
   } catch (error) {

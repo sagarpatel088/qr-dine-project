@@ -5,21 +5,33 @@ function Home() {
   return (
     <div className="home">
 
-      <div className="hero">
+      <div className="overlay">
 
-        <h1>
-          🍽️ Welcome to QR Dine
-        </h1>
+        <div className="hero">
 
-        <p>
-          Order your favourite food directly from your table
-        </p>
+          <h1>🍽️ Welcome to QR Dine</h1>
 
-        <Link to="/menu">
-          <button>
-            Order Now
-          </button>
-        </Link>
+          <p>
+            Experience Fast, Easy & Contactless Food Ordering
+          </p>
+
+          <div className="buttons">
+
+            <Link to="/menu">
+              <button className="order-btn">
+                🍔 Order Now
+              </button>
+            </Link>
+
+            <Link to="/login">
+  <button className="admin-btn">
+    👨‍🍳 Admin Panel
+  </button>
+</Link>
+
+          </div>
+
+        </div>
 
       </div>
 

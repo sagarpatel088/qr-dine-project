@@ -3,6 +3,7 @@ import { useCart } from "../context/CartContext";
 import "./Menu.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 
 
@@ -48,6 +49,7 @@ Fast Food
 Drinks
 </button>
 
+
 </div>
 
       <div className="food-list">
@@ -68,21 +70,27 @@ Drinks
             <div className="food-image">
   <img src={item.image} alt={item.name} />
 </div>
-            <h2>{item.name}</h2>
+           <h2>
+  {item.name} <span style={{color:"#fbc02d"}}>⭐4.8</span>
+</h2>
 
 <p className="category">
   {item.category}
 </p>
 
-<p>₹{item.price}</p>
-            <button 
-              onClick={() => addToCart({
-                ...item,
-                quantity: 1
-              })}
-            >
-              Add To Cart
-            </button>
+<p style={{color:"#ff5722", fontSize:"22px"}}>
+  ₹{item.price}
+</p>
+            onClick={() => {
+
+  addToCart({
+    ...item,
+    quantity: 1
+  });
+
+  toast.success(`${item.name} added to cart 🛒`);
+
+}}
 
           </div>
         ))}

@@ -7,19 +7,32 @@ import Table from "../pages/Table";
 import OrderSuccess from "../pages/OrderSuccess";
 import Navbar from "../components/Navbar";
 import Admin from "../pages/Admin";
+import Login from "../pages/Login";
+import ProtectedRoute from "./ProtectedRoute";
+import QRCodePage from "../pages/QRCodePage";
 
 function AppRoutes() {
   return (
     <BrowserRouter>
     <Navbar/>
-      <Routes>
-  <Route path="/" element={<Home/>} />
-  <Route path="/menu" element={<Menu/>} />
-  <Route path="/cart" element={<Cart/>} />
-  <Route path="/table/:tableId" element={<Table/>} />
-  <Route path="/order-success" element={<OrderSuccess/>} />
-  <Route path="/admin" element={<Admin />} />
+     <Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/menu" element={<Menu />} />
+  <Route path="/cart" element={<Cart />} />
+  <Route path="/table/:tableId" element={<Table />} />
   <Route path="/order-success" element={<OrderSuccess />} />
+  <Route path="/login" element={<Login />} />
+
+  <Route
+    path="/admin"
+    element={
+      <ProtectedRoute>
+        <Admin />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route path="/qrcodes" element={<QRCodePage />} />
 </Routes>
     </BrowserRouter>
   );

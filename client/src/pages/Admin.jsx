@@ -1,11 +1,33 @@
 import { useEffect, useState } from "react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { useNavigate } from "react-router-dom";
+
+import { Bar } from "react-chartjs-2";
 import axios from "axios";
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 import "./Admin.css";
 
 function Admin() {
 
   const [orders, setOrders] = useState([]);
   const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+  const navigate = useNavigate();
 
  const fetchOrders = () => {
   axios
@@ -42,11 +64,34 @@ useEffect(() => {
 
 }, []);
 
+const chartData = {
+  labels: ["Pending", "Preparing", "Ready", "Served"],
+  datasets: [
+    {
+      label: "Orders",
+      data: [
+        orders.filter(o => o.status === "Pending").length,
+        orders.filter(o => o.status === "Preparing").length,
+        orders.filter(o => o.status === "Ready").length,
+        orders.filter(o => o.status === "Served").length,
+      ],
+    },
+  ],
+};
   return (
     
     <div className="admin-container">
 
       <h1>👨‍🍳 Admin Dashboard</h1>
+      <button
+  className="logout-btn"
+  onClick={() => {
+    localStorage.removeItem("admin");
+    navigate("/login");
+  }}
+>
+  🚪 Logout
+</button>
       <input
   type="text"
   placeholder="Search by Table Number..."
@@ -54,7 +99,22 @@ useEffect(() => {
   onChange={(e) => setSearch(e.target.value)}
   className="search-box"
 />
+<select
+  value={statusFilter}
+  onChange={(e) => setStatusFilter(e.target.value)}
+  className="status-filter"
+>
+  <option value="All">All Status</option>
+  <option value="Pending">Pending</option>
+  <option value="Preparing">Preparing</option>
+  <option value="Ready">Ready</option>
+  <option value="Served">Served</option>
+</select>
       <div className="stats">
+        <div className="chart-container">
+  <h2>📊 Order Status Analytics</h2>
+  <Bar data={chartData} />
+</div>
 
   <div className="stat-card">
     <h2>{orders.length}</h2>
@@ -94,6 +154,11 @@ useEffect(() => {
     order.table_number
       .toString()
       .includes(search)
+  )
+  .filter((order) =>
+    statusFilter === "All"
+      ? true
+      : order.status === statusFilter
   )
   .map((order) => (
 

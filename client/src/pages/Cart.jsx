@@ -2,6 +2,7 @@ import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function Cart() {
 const navigate = useNavigate();
@@ -104,8 +105,9 @@ const navigate = useNavigate();
           </h2>
 
 
-         <button
- onClick={async () => {
+        <button
+  className="checkout"
+  onClick={async () => {
 
   try {
 
@@ -115,8 +117,11 @@ const navigate = useNavigate();
       total: total
     });
 
-    clearCart();
-    navigate("/order-success");
+    toast.success("🎉 Order Placed Successfully!");
+
+clearCart();
+
+navigate("/order-success");
 
   } catch (error) {
     console.log(error);

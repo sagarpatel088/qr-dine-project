@@ -113,7 +113,59 @@ app.put("/orders/:id", async (req, res) => {
     });
   }
 });
+app.delete("/menu/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
 
+    await pool.query(
+      "DELETE FROM menu WHERE id = $1",
+      [id]
+    );
+
+    res.json({
+      message: "Food deleted successfully"
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Failed to delete food"
+    });
+  }
+});
+app.put("/menu/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const {
+      name,
+      category,
+      price,
+      image
+    } = req.body;
+
+    const result = await pool.query(
+      `UPDATE menu
+       SET name=$1,
+           category=$2,
+           price=$3,
+           image=$4
+       WHERE id=$5
+       RETURNING *`,
+      [name, category, price, image, id]
+    );
+
+    res.json(result.rows[0]);
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Failed to update food"
+    });
+  }
+});
 pool.query("SELECT NOW()", (err) => {
   if (err) {
     console.log("Database Connection Error:", err);

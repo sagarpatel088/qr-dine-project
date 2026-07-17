@@ -136,6 +136,29 @@ const [isEditing, setIsEditing] = useState(false);
 
   };
 
+  const uploadImage = async (e) => {
+  const file = e.target.files[0];
+
+  if (!file) return;
+
+  const data = new FormData();
+  data.append("file", file);
+  data.append("upload_preset", "qrdine");
+
+  try {
+    const res = await axios.post(
+      "https://api.cloudinary.com/v1_1/sdqlothp/image/upload",
+      data
+    );
+
+    setFoodImage(res.data.secure_url);
+
+    alert("✅ Image Uploaded");
+  } catch (err) {
+    console.log(err);
+    alert("❌ Upload Failed");
+  }
+};
 const updateFood = async () => {
   console.log("Editing ID:", editingId);
 
@@ -295,12 +318,20 @@ value={foodPrice}
 onChange={(e)=>setFoodPrice(e.target.value)}
 />
 
-
 <input
-placeholder="Image URL"
-value={foodImage}
-onChange={(e)=>setFoodImage(e.target.value)}
+  type="file"
+  accept="image/*"
+  onChange={uploadImage}
 />
+
+{foodImage && (
+  <img
+    src={foodImage}
+    alt="Preview"
+    width="120"
+    style={{ marginTop: "10px", borderRadius: "8px" }}
+  />
+)}
 
 
 <button

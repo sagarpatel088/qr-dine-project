@@ -8,11 +8,11 @@ import { toast } from "react-toastify";
 
 
 function Menu() {
+  const API = import.meta.env.VITE_API_URL;
   const [foodItems, setFoodItems] = useState([]);
 
 useEffect(() => {
-  axios
-    .get("https://qr-dine-project.onrender.com/menu")
+  axios.get(`${API}/menu`)
     .then((response) => {
       setFoodItems(response.data);
     })

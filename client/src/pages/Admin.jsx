@@ -23,15 +23,14 @@ ChartJS.register(
 import "./Admin.css";
 
 function Admin() {
-
+  const API = import.meta.env.VITE_API_URL;
   const [orders, setOrders] = useState([]);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const navigate = useNavigate();
 
  const fetchOrders = () => {
-  axios
-    .get("https://qr-dine-project.onrender.com/orders")
+  axios.get(`${API}/orders`)
     .then((response) => {
       setOrders(response.data);
     })

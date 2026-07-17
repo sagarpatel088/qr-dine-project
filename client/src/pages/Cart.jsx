@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 function Cart() {
+const API = import.meta.env.VITE_API_URL;
 const navigate = useNavigate();
  const {
   cart,
@@ -110,7 +111,7 @@ const navigate = useNavigate();
   onClick={async () => {
 
   try {
-  await axios.post("https://qr-dine-project.onrender.com/orders", {
+await axios.post(`${API}/orders`, {
     tableNumber: tableNumber,
     items: cart,
     total: total,

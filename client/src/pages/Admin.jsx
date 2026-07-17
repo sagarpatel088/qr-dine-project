@@ -515,7 +515,9 @@ Order #{order.id}
 💰 Total : ₹{order.total}
 </p>
 
-
+<p>
+  🕒 {new Date(order.created_at).toLocaleString("en-IN")}
+</p>
 <p>
 Status : {order.status}
 </p>

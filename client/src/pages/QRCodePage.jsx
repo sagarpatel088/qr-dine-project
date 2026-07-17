@@ -1,59 +1,68 @@
 import QRCode from "react-qr-code";
+import { toPng } from "html-to-image";
 
 function QRCodePage() {
+  const tables = Array.from({ length: 10 }, (_, i) => i + 1);
 
-  const tables = [1,2,3,4,5,6];
+  const downloadQR = (table) => {
+    const node = document.getElementById(`qr-${table}`);
+
+    toPng(node)
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.download = `Table-${table}.png`;
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
-    <div
-      style={{
-        padding: "40px",
-        textAlign: "center",
-      }}
-    >
-      <h1>🍽️ QR Dine - Table QR Codes</h1>
+    <div style={{ padding: "30px" }}>
+      <h1>📱 Restaurant QR Codes</h1>
 
       <div
         style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "30px",
-          justifyContent: "center",
-          marginTop: "40px",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))",
+          gap: "20px",
         }}
       >
         {tables.map((table) => (
-
           <div
             key={table}
             style={{
-              background: "#fff",
+              border: "1px solid #ddd",
+              borderRadius: "10px",
               padding: "20px",
-              borderRadius: "15px",
-              boxShadow: "0 5px 15px rgba(0,0,0,.15)"
+              textAlign: "center",
             }}
           >
             <h2>Table {table}</h2>
 
-            <QRCode
-              value={`http://localhost:5173/table/${table}`}
-              size={180}
-            />
-
-            <p
+            <div
+              id={`qr-${table}`}
               style={{
-                marginTop: "10px",
-                fontSize: "14px"
+                background: "#fff",
+                padding: "15px",
+                display: "inline-block",
               }}
             >
-              Scan to Order
-            </p>
+              <QRCode
+                value={`https://qr-dine-project.vercel.app/table/${table}`}
+                size={180}
+              />
+            </div>
 
+            <br />
+            <br />
+
+            <button onClick={() => downloadQR(table)}>
+              Download QR
+            </button>
           </div>
-
         ))}
       </div>
-
     </div>
   );
 }

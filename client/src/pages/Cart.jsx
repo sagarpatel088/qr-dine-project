@@ -111,6 +111,7 @@ const navigate = useNavigate();
   onClick={async () => {
 
   try {
+    console.log(tableNumber);
 await axios.post(`${API}/orders`, {
     tableNumber: tableNumber,
     items: cart,

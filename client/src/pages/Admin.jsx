@@ -23,11 +23,16 @@ ChartJS.register(
 import "./Admin.css";
 
 function Admin() {
-  const API = import.meta.env.VITE_API_URL;
   const [orders, setOrders] = useState([]);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const navigate = useNavigate();
+  const API = import.meta.env.VITE_API_URL;
+
+const [foodName, setFoodName] = useState("");
+const [foodCategory, setFoodCategory] = useState("");
+const [foodPrice, setFoodPrice] = useState("");
+const [foodImage, setFoodImage] = useState("");
 
  const fetchOrders = () => {
   axios.get(`${API}/orders`)
@@ -38,7 +43,27 @@ function Admin() {
       console.log(error);
     });
 };
+const addFood = async () => {
+  try {
+    await axios.post(`${API}/menu`, {
+      name: foodName,
+      category: foodCategory,
+      price: Number(foodPrice),
+      image: foodImage,
+    });
 
+    alert("✅ Food Added Successfully");
+
+    setFoodName("");
+    setFoodCategory("");
+    setFoodPrice("");
+    setFoodImage("");
+
+  } catch (error) {
+    console.log(error);
+    alert("❌ Failed to Add Food");
+  }
+};
 const updateStatus = async (id, status) => {
   try {
     await axios.put(
@@ -81,6 +106,43 @@ const chartData = {
     <div className="admin-container">
 
       <h1>👨‍🍳 Admin Dashboard</h1>
+      <div className="add-food">
+
+  <h2>🍔 Add New Food</h2>
+
+  <input
+    type="text"
+    placeholder="Food Name"
+    value={foodName}
+    onChange={(e) => setFoodName(e.target.value)}
+  />
+
+  <input
+    type="text"
+    placeholder="Category"
+    value={foodCategory}
+    onChange={(e) => setFoodCategory(e.target.value)}
+  />
+
+  <input
+    type="number"
+    placeholder="Price"
+    value={foodPrice}
+    onChange={(e) => setFoodPrice(e.target.value)}
+  />
+
+  <input
+    type="text"
+    placeholder="Image URL"
+    value={foodImage}
+    onChange={(e) => setFoodImage(e.target.value)}
+  />
+
+  <button onClick={addFood}>
+    ➕ Add Food
+  </button>
+
+</div>
       <button
   className="logout-btn"
   onClick={() => {

@@ -12,40 +12,24 @@ app.get("/", (req, res) => {
   res.send("🚀 QR Dine Backend is Running...");
 });
 
-const foodItems = [
-  {
-    id: 1,
-    name: "Burger",
-    category: "Fast Food",
-    price: 120,
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd"
-  },
-  {
-    id: 2,
-    name: "Pizza",
-    category: "Fast Food",
-    price: 250,
-    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591"
-  },
-  {
-    id: 3,
-    name: "Pasta",
-    category: "Italian",
-    price: 180,
-    image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9"
-  },
-  {
-    id: 4,
-    name: "Cold Drink",
-    category: "Beverage",
-    price: 60,
-    image: "https://images.unsplash.com/photo-1544145945-f90425340c7e"
-  }
-];
+app.get("/menu", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM menu ORDER BY id"
+    );
 
-app.get("/menu", (req, res) => {
-  res.json(foodItems);
+    res.json(result.rows);
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Failed to fetch menu"
+    });
+  }
 });
+
+
 
 app.post("/orders", async (req, res) => {
   try {

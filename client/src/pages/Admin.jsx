@@ -136,7 +136,33 @@ const [isEditing, setIsEditing] = useState(false);
 
   };
 
+const updateFood = async () => {
+  console.log("Editing ID:", editingId);
 
+  try {
+    await axios.put(`${API}/menu/${editingId}`, {
+      name: foodName,
+      category: foodCategory,
+      price: Number(foodPrice),
+      image: foodImage,
+    });
+    alert("✅ Food Updated");
+
+    setFoodName("");
+    setFoodCategory("");
+    setFoodPrice("");
+    setFoodImage("");
+
+    setEditingId(null);
+    setIsEditing(false);
+
+    fetchMenu();
+
+  } catch (error) {
+    console.log(error);
+    alert("❌ Update Failed");
+  }
+};
 
   // UPDATE STATUS
   const updateStatus = async(id,status)=>{
@@ -280,7 +306,7 @@ onChange={(e)=>setFoodImage(e.target.value)}
 <button
   onClick={() => {
     if (isEditing) {
-      alert("Edit mode started ✅");
+      updateFood();
     } else {
       addFood();
     }
@@ -385,7 +411,6 @@ alt={item.name}
 >
   ✏️ Edit
 </button>
-
 <button
   style={{ background: "red" }}
   onClick={() => deleteFood(item.id)}

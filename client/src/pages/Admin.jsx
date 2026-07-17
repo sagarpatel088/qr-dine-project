@@ -35,6 +35,8 @@ function Admin() {
   const [foodCategory, setFoodCategory] = useState("");
   const [foodPrice, setFoodPrice] = useState("");
   const [foodImage, setFoodImage] = useState("");
+  const [editingId, setEditingId] = useState(null);
+const [isEditing, setIsEditing] = useState(false);
 
   const navigate = useNavigate();
 
@@ -275,11 +277,17 @@ onChange={(e)=>setFoodImage(e.target.value)}
 />
 
 
-<button onClick={addFood}>
-➕ Add Food
+<button
+  onClick={() => {
+    if (isEditing) {
+      alert("Edit mode started ✅");
+    } else {
+      addFood();
+    }
+  }}
+>
+  {isEditing ? "💾 Save Changes" : "➕ Add Food"}
 </button>
-
-
 </div>
 
 
@@ -362,18 +370,27 @@ alt={item.name}
 
 <p>₹{item.price}</p>
 
+<button
+  style={{ background: "#2196f3", marginRight: "10px" }}
+  onClick={() => {
+    setEditingId(item.id);
 
+    setFoodName(item.name);
+    setFoodCategory(item.category);
+    setFoodPrice(item.price);
+    setFoodImage(item.image);
+
+    setIsEditing(true);
+  }}
+>
+  ✏️ Edit
+</button>
 
 <button
-
-style={{background:"red"}}
-
-onClick={()=>deleteFood(item.id)}
-
+  style={{ background: "red" }}
+  onClick={() => deleteFood(item.id)}
 >
-
-🗑 Delete
-
+  🗑 Delete
 </button>
 
 

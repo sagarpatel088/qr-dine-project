@@ -29,7 +29,27 @@ app.get("/menu", async (req, res) => {
   }
 });
 
+app.post("/menu", async (req, res) => {
+  try {
+    const { name, category, price, image } = req.body;
 
+    const result = await pool.query(
+      `INSERT INTO menu (name, category, price, image)
+       VALUES ($1, $2, $3, $4)
+       RETURNING *`,
+      [name, category, price, image]
+    );
+
+    res.status(201).json(result.rows[0]);
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Failed to add food"
+    });
+  }
+});
 
 app.post("/orders", async (req, res) => {
   try {

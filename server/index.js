@@ -119,7 +119,11 @@ app.put("/orders/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
-
+    const orderResult = await pool.query(
+  "SELECT table_number FROM orders WHERE id = $1",
+  [id]
+);
+const tableNumber = orderResult.rows[0].table_number;
     const result = await pool.query(
       `UPDATE orders
        SET status = $1
@@ -127,7 +131,14 @@ app.put("/orders/:id", async (req, res) => {
        RETURNING *`,
       [status, id]
     );
-
+    if (status === "Served") {
+  await pool.query(
+    `UPDATE tables
+     SET status = 'Available'
+     WHERE table_number = $1`,
+    [tableNumber]
+  );
+}
     res.json(result.rows[0]);
 
   } catch (error) {

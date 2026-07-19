@@ -27,7 +27,7 @@ function Admin() {
 
   const [orders, setOrders] = useState([]);
   const [menuItems, setMenuItems] = useState([]);
-
+  const [tables, setTables] = useState([]);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
 
@@ -76,7 +76,14 @@ const [isEditing, setIsEditing] = useState(false);
 
   };
 
-
+const fetchTables = async () => {
+  try {
+    const response = await axios.get(`${API}/tables`);
+    setTables(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   // ADD FOOD
   const addFood = async () => {
@@ -103,6 +110,7 @@ const [isEditing, setIsEditing] = useState(false);
 
 
       fetchMenu();
+      
 
 
     } catch(error){
@@ -217,11 +225,13 @@ const updateFood = async () => {
 
     fetchOrders();
     fetchMenu();
+    fetchTables();
 
 
     const interval = setInterval(() => {
   fetchOrders();
   fetchMenu();
+  fetchTables();
 }, 5000);
 
 
@@ -396,7 +406,28 @@ onChange={(e)=>setStatusFilter(e.target.value)}
 <Bar data={chartData}/>
 
 </div>
+<h2>🪑 Table Management</h2>
 
+<div className="table-list">
+
+  {tables.map((table) => (
+
+    <div className="order-card" key={table.table_number}>
+
+      <h3>Table {table.table_number}</h3>
+
+      <p>
+        Status :
+        {table.status === "Available"
+          ? " 🟢 Available"
+          : " 🔴 Occupied"}
+      </p>
+
+    </div>
+
+  ))}
+
+</div>
 
 
 

@@ -241,7 +241,13 @@ const updateFood = async () => {
   },[]);
 
 
+  const activeOrders = orders.filter(
+  (order) => order.status !== "Served"
+);
 
+const orderHistory = orders.filter(
+  (order) => order.status === "Served"
+);
   const chartData={
 
     labels:[
@@ -488,125 +494,98 @@ alt={item.name}
 ))
 
 }
-
-
-
-
-
-
-<h2>📦 Orders</h2>
-
-
+<h2>📦 Active Orders</h2>
 
 {
-
-orders
-
-.filter(order=>
-
-order.table_number
-.toString()
-.includes(search)
-
+activeOrders
+.filter(order =>
+  order.table_number.toString().includes(search)
 )
-
-
-.filter(order=>
-
-statusFilter==="All"
-
-?
-
-true
-
-:
-
-order.status===statusFilter
-
+.filter(order =>
+  statusFilter === "All"
+    ? true
+    : order.status === statusFilter
 )
-
-
-.map(order=>(
-
+.map(order => (
 
 <div className="order-card" key={order.id}>
 
+<h2>Order #{order.id}</h2>
 
-<h2>
-Order #{order.id}
-</h2>
+<p>🍽️ Table : {order.table_number}</p>
 
-
-<p>
-🍽️ Table : {order.table_number}
-</p>
-
+<p>💰 Total : ₹{order.total}</p>
 
 <p>
-💰 Total : ₹{order.total}
+🕒 {new Date(order.created_at).toLocaleString("en-IN")}
 </p>
 
-<p>
-  🕒 {new Date(order.created_at).toLocaleString("en-IN")}
-</p>
-<p>
-Status : {order.status}
-</p>
-
-
+<p>Status : {order.status}</p>
 
 <select
-
 value={order.status}
-
-onChange={(e)=>
-
-updateStatus(
-order.id,
-e.target.value
-)
-
+onChange={(e) =>
+updateStatus(order.id, e.target.value)
 }
-
 >
-
 <option>Pending</option>
 <option>Preparing</option>
 <option>Ready</option>
 <option>Served</option>
-
-
 </select>
-
-
 
 <h3>Items</h3>
 
-
 {
-
 order.items.map((item,index)=>(
-
 <p key={index}>
-
 {item.name} × {item.quantity}
-
 </p>
-
 ))
-
 }
-
-
 
 </div>
 
-
 ))
-
-
 }
 
+<hr style={{margin:"40px 0"}} />
+
+<h2>📜 Order History</h2>
+
+{
+orderHistory.map(order => (
+
+<div className="order-card" key={order.id}>
+
+<h2>Order #{order.id}</h2>
+
+<p>🍽️ Table : {order.table_number}</p>
+
+<p>💰 Total : ₹{order.total}</p>
+
+<p>
+🕒 {new Date(order.created_at).toLocaleString("en-IN")}
+</p>
+
+<p style={{color:"green",fontWeight:"bold"}}>
+✅ Served
+</p>
+
+<h3>Items</h3>
+
+{
+order.items.map((item,index)=>(
+<p key={index}>
+{item.name} × {item.quantity}
+</p>
+))
+}
+
+</div>
+
+))
+}
 
 
 </div>

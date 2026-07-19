@@ -23,6 +23,10 @@ useEffect(() => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const { addToCart } = useCart();
+  const categories = [
+  "All",
+  ...new Set(foodItems.map((item) => item.category)),
+];
 
   return (
     <div className="menu-container">
@@ -36,22 +40,15 @@ useEffect(() => {
   onChange={(e) => setSearch(e.target.value)}
 />
 <div className="category-buttons">
-
-<button onClick={() => setCategory("All")}>
-All
-</button>
-
-<button onClick={() => setCategory("Fast Food")}>
-Fast Food
-</button>
-
-<button onClick={() => setCategory("Drinks")}>
-Drinks
-</button>
-
-<button onClick={() => setCategory("Sabji")}>
-Sabji
-</button>
+  {categories.map((cat) => (
+    <button
+      key={cat}
+      className={category === cat ? "active-category" : ""}
+      onClick={() => setCategory(cat)}
+    >
+      {cat}
+    </button>
+  ))}
 </div>
 
       <div className="food-list">

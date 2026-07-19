@@ -75,6 +75,7 @@ app.post("/orders", async (req, res) => {
   }
 });
 
+
 app.get("/orders", async (req, res) => {
   try {
     const result = await pool.query(
@@ -87,6 +88,23 @@ app.get("/orders", async (req, res) => {
     console.error(error);
     res.status(500).json({
       message: "Failed to fetch orders"
+    });
+  }
+});
+// GET ALL TABLES
+app.get("/tables", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM tables ORDER BY table_number"
+    );
+
+    res.json(result.rows);
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Failed to fetch tables"
     });
   }
 });
@@ -112,6 +130,35 @@ app.put("/orders/:id", async (req, res) => {
       message: "Failed to update status"
     });
   }
+});
+// UPDATE TABLE STATUS
+app.put("/tables/:tableNumber", async (req, res) => {
+
+  try {
+
+    const { tableNumber } = req.params;
+    const { status } = req.body;
+
+    const result = await pool.query(
+      `UPDATE tables
+       SET status = $1
+       WHERE table_number = $2
+       RETURNING *`,
+      [status, tableNumber]
+    );
+
+    res.json(result.rows[0]);
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      message: "Failed to update table"
+    });
+
+  }
+
 });
 app.delete("/menu/:id", async (req, res) => {
   try {

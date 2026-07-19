@@ -61,6 +61,12 @@ app.post("/orders", async (req, res) => {
        RETURNING *`,
       [tableNumber, JSON.stringify(items), total]
     );
+    await pool.query(
+  `UPDATE tables
+   SET status = 'Occupied'
+   WHERE table_number = $1`,
+  [tableNumber]
+);
 
     res.status(201).json({
       message: "Order placed successfully",
@@ -202,6 +208,7 @@ app.put("/menu/:id", async (req, res) => {
        RETURNING *`,
       [name, category, price, image, id]
     );
+    
 
     res.json(result.rows[0]);
 

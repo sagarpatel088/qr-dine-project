@@ -10,7 +10,7 @@ import Admin from "../pages/Admin";
 import Login from "../pages/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import QRCodePage from "../pages/QRCodePage";
-
+import Bill from "./pages/Bill";
 function AppRoutes() {
   return (
     <BrowserRouter>
@@ -22,7 +22,7 @@ function AppRoutes() {
   <Route path="/table/:tableId" element={<Table />} />
   <Route path="/order-success" element={<OrderSuccess />} />
   <Route path="/login" element={<Login />} />
-
+    <Route path="/bill/:id" element={<Bill />} />
   <Route
     path="/admin"
     element={

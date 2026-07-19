@@ -543,16 +543,7 @@ order.items.map((item,index)=>(
 </p>
 ))
 }
-<button
-  style={{
-    marginTop: "10px",
-    background: "#4CAF50",
-    color: "white"
-  }}
-  onClick={() => navigate(`/bill/${order.id}`)}
->
-  🧾 View Bill
-</button>
+
 </div>
 
 ))
@@ -590,7 +581,16 @@ order.items.map((item,index)=>(
 </p>
 ))
 }
-
+<button
+  style={{
+    marginTop: "10px",
+    background: "#4CAF50",
+    color: "white"
+  }}
+  onClick={() => navigate(`/bill/${order.id}`)}
+>
+  🧾 View Bill
+</button>
 </div>
 
 ))

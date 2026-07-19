@@ -49,7 +49,9 @@ Fast Food
 Drinks
 </button>
 
-
+<button onClick={() => setCategory("Sabji")}>
+Sabji
+</button>
 </div>
 
       <div className="food-list">

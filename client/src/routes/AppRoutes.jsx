@@ -10,7 +10,7 @@ import Admin from "../pages/Admin";
 import Login from "../pages/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import QRCodePage from "../pages/QRCodePage";
-import Bill from "./pages/Bill";
+import Bill from "../pages/Bill";
 function AppRoutes() {
   return (
     <BrowserRouter>

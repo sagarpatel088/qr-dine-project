@@ -97,6 +97,25 @@ app.get("/orders", async (req, res) => {
     });
   }
 });
+app.get("/orders/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await pool.query(
+      "SELECT * FROM orders WHERE id = $1",
+      [id]
+    );
+
+    res.json(result.rows[0]);
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Failed to fetch order"
+    });
+  }
+});
 // GET ALL TABLES
 app.get("/tables", async (req, res) => {
   try {
